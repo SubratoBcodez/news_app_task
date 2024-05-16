@@ -18,7 +18,7 @@ class TopNewsPage extends StatefulWidget {
 
 class _TopNewsPageState extends State<TopNewsPage> {
   List<dynamic> _newsData = [];
-  List<NewsDetailsModel> newsList = [];
+  List<NewsDetailsModel> newsTopList = [];
   // List to hold the fetched data
 
   @override
@@ -45,10 +45,10 @@ class _TopNewsPageState extends State<TopNewsPage> {
     if (response.statusCode == 200) {
       final newsIdListModel = newsIdModelFromJson(response.body);
       final List<dynamic> dataList = json.decode(response.body);
-      print(dataList);
+      // print(dataList);
       newsIdListModel.forEach((element) async {
         var newsIdDetails = await newsIDtoDetails(element);
-        newsList.add(newsIdDetails);
+        newsTopList.add(newsIdDetails);
       });
 
       setState(() {
@@ -72,8 +72,8 @@ class _TopNewsPageState extends State<TopNewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: newsList.isEmpty
-          ? Center(
+      body: newsTopList.isEmpty
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
@@ -104,7 +104,7 @@ class _TopNewsPageState extends State<TopNewsPage> {
                             child: Icon(Iconsax.icon),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -114,7 +114,7 @@ class _TopNewsPageState extends State<TopNewsPage> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.60,
                               height: MediaQuery.of(context).size.height * 0.1,
-                              child: customText('${newsList[index].title}',
+                              child: customText('${newsTopList[index].title}',
                                   FontWeight.bold, 18.0, AppColor.purpleColor),
                             ),
                             Row(
@@ -122,11 +122,11 @@ class _TopNewsPageState extends State<TopNewsPage> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(Iconsax.user,size: 16,),
-                                    SizedBox(
+                                    const Icon(Iconsax.user,size: 16,),
+                                    const SizedBox(
                                       width: 4,
                                     ),
-                                    customText('${newsList[index].by}',
+                                    customText('${newsTopList[index].by}',
                                         FontWeight.normal, 15.0, Colors.black)
                                   ],
                                 ),
@@ -136,11 +136,11 @@ class _TopNewsPageState extends State<TopNewsPage> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(Iconsax.calendar_1,size: 16,),
-                                    SizedBox(
+                                    const Icon(Iconsax.calendar_1,size: 16,),
+                                    const SizedBox(
                                       width: 4,
                                     ),
-                                    customText(formatDate(newsList[index].time),
+                                    customText(formatDate(newsTopList[index].time),
                                         FontWeight.normal, 15.0, Colors.black)
                                   ],
                                 ),

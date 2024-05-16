@@ -5,13 +5,23 @@ import 'package:iconsax/iconsax.dart';
 import '../bcodez/app_color.dart';
 
 class NewsDetailsPage extends StatefulWidget {
-  const NewsDetailsPage({super.key});
+  final dynamic newsItem;
+  const NewsDetailsPage({super.key, required this.newsItem});
 
   @override
   State<NewsDetailsPage> createState() => _NewsDetailsPageState();
 }
 
 class _NewsDetailsPageState extends State<NewsDetailsPage> {
+
+
+
+  @override
+  void initState() {
+    // print(widget.newsItem.title);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +39,17 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
             ),
             onPressed: () => Get.back()),
         backgroundColor: AppColor.purpleColor,
+      ),
+      body: Column(
+        children: [
+          Text(widget.newsItem.title),
+          Text(widget.newsItem.by),
+          Text(widget.newsItem.score.toString()),
+          Text(widget.newsItem.time.toString()),
+          Text(widget.newsItem.type),
+          Text(widget.newsItem.url),
+        ],
+
       ),
     );
   }

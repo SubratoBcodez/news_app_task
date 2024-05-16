@@ -85,12 +85,13 @@ class _LatestNewsPageState extends State<LatestNewsPage> {
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
+                  var newsItem = newsLatestList[index];
                   return Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       onTap: () {
-                        Get.toNamed(newsDetails);
+                        Get.toNamed(newsDetails, arguments: newsItem);
                       },
                       child: Ink(
                         padding: const EdgeInsets.symmetric(

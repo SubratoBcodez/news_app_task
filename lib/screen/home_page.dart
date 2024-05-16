@@ -55,8 +55,10 @@ class _NewsHomePageState extends State<NewsHomePage> {
             ),
           ),
         ),
-        body: TabBarView(children: [TopNewsPage(), Text('latest')]),
-        // body: const TabBarView(children: [TopNewsPage(), LatestNewsPage()]),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: const TabBarView(children: [TopNewsPage(), LatestNewsPage()]),
+        ),
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:iconsax/iconsax.dart';
 import '../bcodez/app_color.dart';
+import '../bcodez/route.dart';
 import '../bcodez/widget.dart';
 import '../models/news_details.dart';
 import '../models/news_id_model.dart';
@@ -17,8 +19,6 @@ class LatestNewsPage extends StatefulWidget {
 }
 
 class _LatestNewsPageState extends State<LatestNewsPage> {
-
-
   List<dynamic> _newsData = [];
   List<NewsDetailsModel> newsLatestList = [];
   // List to hold the fetched data
@@ -73,87 +73,117 @@ class _LatestNewsPageState extends State<LatestNewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: newsLatestList.isEmpty
           ? Center(
-        child: CircularProgressIndicator(),
-      )
-          : ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 10, vertical: 10),
-            margin:
-            const EdgeInsets.only(left: 16, right: 16, bottom: 10),
-            height: MediaQuery.of(context).size.height * 0.15,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: AppColor.lightPurpleColor),
-            child: Row(
-              children: [
-                Container(
-                  height: double.maxFinite,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColor.purpleColor),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Icon(Iconsax.icon),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.60,
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      child: customText('${newsLatestList[index].title}',
-                          FontWeight.bold, 18.0, AppColor.purpleColor),
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+              ),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Get.toNamed(newsDetails);
+                      },
+                      child: Ink(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: AppColor.lightPurpleColor),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: double.maxFinite,
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColor.purpleColor),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Icon(Iconsax.icon),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.60,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  child: customText(
+                                      '${newsLatestList[index].title}',
+                                      FontWeight.bold,
+                                      18.0,
+                                      AppColor.purpleColor),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Iconsax.user,
+                                          size: 16,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        customText(
+                                            '${newsLatestList[index].by}',
+                                            FontWeight.normal,
+                                            15.0,
+                                            Colors.black)
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Iconsax.calendar_1,
+                                          size: 16,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        customText(
+                                            formatDate(
+                                                newsLatestList[index].time),
+                                            FontWeight.normal,
+                                            15.0,
+                                            Colors.black)
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Iconsax.user,size: 16,),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            customText('${newsLatestList[index].by}',
-                                FontWeight.normal, 15.0, Colors.black)
-                          ],
-                        ),
-
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width*0.05,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Iconsax.calendar_1,size: 16,),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            customText(formatDate(newsLatestList[index].time),
-                                FontWeight.normal, 15.0, Colors.black)
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
-                )
-              ],
+                  );
+                },
+              ),
             ),
-          );
-        },
-      ),
-
     );
   }
 }

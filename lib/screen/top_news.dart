@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:iconsax/iconsax.dart';
+import 'package:news_app_task/bcodez/route.dart';
 import 'package:news_app_task/bcodez/widget.dart';
 import '../bcodez/app_color.dart';
 import '../models/news_details.dart';
@@ -77,78 +80,106 @@ class _TopNewsPageState extends State<TopNewsPage> {
               child: CircularProgressIndicator(),
             )
           : Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+              ),
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    margin:
-                        const EdgeInsets.only(left: 16, right: 16, bottom: 10),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: AppColor.lightPurpleColor),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: double.maxFinite,
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColor.purpleColor),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Icon(Iconsax.icon),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {
+                        Get.toNamed(newsDetails);
+                      },
+                      child: Ink(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: AppColor.lightPurpleSecond),
+                        child: Row(
                           children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.60,
-                              height: MediaQuery.of(context).size.height * 0.1,
-                              child: customText('${newsTopList[index].title}',
-                                  FontWeight.bold, 18.0, AppColor.purpleColor),
+                            Container(
+                              height: double.maxFinite,
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColor.purpleColor),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Icon(Iconsax.icon),
+                              ),
                             ),
-                            Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    const Icon(Iconsax.user,size: 16,),
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    customText('${newsTopList[index].by}',
-                                        FontWeight.normal, 15.0, Colors.black)
-                                  ],
-                                ),
-
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width*0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.60,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  child: customText(
+                                      '${newsTopList[index].title}',
+                                      FontWeight.bold,
+                                      18.0,
+                                      AppColor.purpleColor),
                                 ),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Icon(Iconsax.calendar_1,size: 16,),
-                                    const SizedBox(
-                                      width: 4,
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Iconsax.user,
+                                          size: 16,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        customText(
+                                            '${newsTopList[index].by}',
+                                            FontWeight.normal,
+                                            15.0,
+                                            Colors.black)
+                                      ],
                                     ),
-                                    customText(formatDate(newsTopList[index].time),
-                                        FontWeight.normal, 15.0, Colors.black)
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Iconsax.calendar_1,
+                                          size: 16,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        customText(
+                                            formatDate(newsTopList[index].time),
+                                            FontWeight.normal,
+                                            15.0,
+                                            Colors.black)
+                                      ],
+                                    ),
                                   ],
-                                ),
+                                )
                               ],
                             )
                           ],
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                   );
                 },

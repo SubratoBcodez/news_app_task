@@ -2,6 +2,11 @@
 
 A News App Flutter project using Rest Api ( Hacker News API) by SubratoB.
 
+## Screenshoot
+<img src="screenshoot/splashscreen.png" height="450" />
+<img src="screenshoot/topnews.png" height="450" />    <img src="screenshoot/latestnews.png" height="450" />    <img src="screenshoot/newsdetails.png" height="450" />
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

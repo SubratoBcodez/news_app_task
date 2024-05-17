@@ -29,12 +29,29 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: EdgeInsets.only(top: 250, bottom: 400),
+              child: Text(
+                'N E W S   A P P',
+                style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.normal,
+                    color: AppColor.whiteColor),
+              ),
+            ),
             Text(
-              'N E W S   A P P',
+              "Developed by",
               style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.normal,
-                  color: AppColor.whiteColor),
+                  color: Colors.black45,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text(
+              "BasakCodez",
+              style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600),
             ),
           ],
         ),

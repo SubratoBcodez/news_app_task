@@ -85,7 +85,7 @@ class _TopNewsPageState extends State<TopNewsPage> {
                 right: 16,
               ),
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: newsTopList.length,
                 itemBuilder: (context, index) {
                   var newsItem = newsTopList[index];
                   return Padding(

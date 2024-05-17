@@ -83,7 +83,7 @@ class _LatestNewsPageState extends State<LatestNewsPage> {
                 right: 16,
               ),
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: newsLatestList.length,
                 itemBuilder: (context, index) {
                   var newsItem = newsLatestList[index];
                   return Padding(
@@ -111,7 +111,10 @@ class _LatestNewsPageState extends State<LatestNewsPage> {
                                   color: AppColor.purpleColor),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Icon(Iconsax.icon),
+                                child: Image.network(
+                                  'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png?20190312180423',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             const SizedBox(
